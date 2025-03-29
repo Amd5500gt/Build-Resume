@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Left to Right</title>
+  <style>
+    /* Your existing CSS styles */
+    .navbar {
+      padding: 1rem 2rem;
+      background: rgba(20, 30, 48, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar .navbar-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .navbar .navbar-brand-icon {
+      width: 50px;
+      height: 50px;
+      margin-right: 1rem;
+      transition: transform 0.5s ease;
+    }
+
+    .navbar .navbar-brand-icon:hover {
+      transform: rotate(360deg);
+    }
+
+    .navbar .navbar-brand-text {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f0ab00;
+    }
+
+    .navbar .navbar-toggler-btn {
+      display: none;
+    }
+
+    @keyframes sparkBorder {
+      0% { box-shadow: 0 0 5px #1928ad, 0 0 10px #15014d; }
+      50% { box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00; }
+      100% { box-shadow: 0 0 5px #071483, 0 0 10px #3d0977; }
+    }
+
+    /* Slideshow Wrappers for outer buttons */
+    .slideshow-wrapper {
+      position: relative;
+      max-width: 950px;
+      margin: 20px auto;
+    }
+
+    .slideshow-wrapper-2 {
+      position: relative;
+      max-width: 510px;
+      margin: 20px auto;
+    }
+
+    .slideshow-container {
+      padding: 15px 0;
+      margin: 0;
+      max-width: 950px;
+      max-height: 800px;
+      overflow: hidden;
+      border: 2px solid #7e3e3e;
+      animation: sparkBorder 15s infinite alternate;
+      border-radius: 10px;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      display: flex;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      display: block;
+      border-radius: 15px;
+    }
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: auto;
+      padding: 60px 8px;
+      color: rgb(26, 20, 20);
+      background-color: #abbbd6;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s ease;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10;
+    
+    }
+
+    .prev {
+      left: -50px;
+    }
+
+    .next {
+      right: -50px;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background-color: rgb(204, 177, 27);
+    }
+
+    .slideshow-container-2 {
+      padding: 15px 0;
+      margin: 0;
+      max-width: 510px;
+      max-height: 1000px;
+      overflow: hidden;
+      border: 2px solid #7e3e3e;
+      animation: sparkBorder 15s infinite alternate;
+      border-radius: 10px;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      display: flex;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slides-2 {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides-2 img {
+      width: 100%;
+      display: block;
+      border-radius: 15px;
+    }
+
+    .prev-2,
+    .next-2 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: auto;
+      padding: 60px 8px;
+      color: #2e0303;
+      background-color: rgb(202, 199, 151);
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s ease;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .prev-2 {
+      left: -50px;
+    }
+
+    .next-2 {
+      right: -50px;
+    }
+
+    .prev-2:hover,
+    .next-2:hover {
+      background-color: rgb(139, 141, 11);
+    }
+
+    @keyframes pastelBgChange {
+      0% { background-color: #f3bec1; }
+      25% { background-color: #fdf7ad; }
+      50% { background-color: #bde9ee; }
+      75% { background-color: #bbf5d2; }
+      100% { background-color: #fccccf; }
+    }
+
+    body {
+      animation: pastelBgChange 10s infinite alternate ease-in-out;
+      transition: background-color 3.5s ease-in-out;
+      margin: 0;
+      background-size: 300% 300%;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.5;
+      animation: floatMove 8s infinite alternate ease-in-out;
+    }
+
+    .circle {
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+
+    .square {
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.4);
+      transform: rotate(45deg);
+    }
+
+    @keyframes floatMove {
+      0% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-60px) translateX(40px) scale(1.2); opacity: 1; }
+    }
+
+    .glow {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: pulseGlow 5s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.8); opacity: 0.2; }
+    }
+
+    .parallax {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    }
+
+    h1 {
+      margin-top: 100px;
+      font-size: 2.4rem;
+      color: #491818;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      position: relative;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    h1:hover {
+      transform: scale(1.0) rotate(21255deg);
+      text-shadow: 0 0 10px #382d1c, 0 0 20px #493e36, 0 0 30px #291c18;
+    }
+
+    @keyframes neonGlow {
+      0% { text-shadow: 0 0 5px #ff9d00, 0 0 10px #ff7300; }
+      50% { text-shadow: 0 0 15px #ff3b00, 0 0 25px #ff7300; }
+      100% { text-shadow: 0 0 5px #ff9d00, 0 0 10px #ff7300; }
+    }
+
+    h1 {
+      animation: neonGlow 1.5s infinite alternate ease-in-out;
+    }
+
+    h2 { 
+      margin-left: 5%;
+      margin-top: 65px;
+      font-size: 2rem;
+      color: #5c5252;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      bottom: -5px;
+      left: 50%;
+      background: linear-gradient(90deg, #ff9d00, #ff3b00);
+      transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
+    }
+
+    h2:hover {
+      color: #ff7300;
+      text-shadow: 0 0 10px rgba(255, 115, 0, 0.7);
+    }
+
+    h2:hover::after {
+      width: 100%;
+      left: 0%;
+    }
+
+    @media (max-width: 1000px){
+/* Mobile-First Slideshow Containers with Outer Buttons */
+.slideshow-wrapper, .slideshow-wrapper-2 {
+  position: relative;
+  width: 100%;
+  padding: 0 40px; /* Space for outer buttons */
+  box-sizing: border-box;
+}
+
+.slideshow-container, .slideshow-container-2 {
+  padding: 10px 0;
+  margin: 15px 0;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid #7e3e3e;
+  border-radius: 8px;
+  animation: sparkBorder 15s infinite alternate;
+}
+
+/* Navigation Buttons (Outside Containers) */
+.prev, .next, .prev-2, .next-2 {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #9ca0a7;
+  color: #1a1414;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 10px;
+margin: 2%;
+
+}
+
+.prev, .prev-2 { left: 0; }
+.next, .next-2 { right: 0; }
+    }
+/* Mobile-specific adjustments */
+@media (max-width: 480px) {
+  .slideshow-wrapper, .slideshow-wrapper-2 {
+    padding: 0 30px;
+  }
+  
+  .prev, .next, .prev-2, .next-2 {
+    padding: 30px 5px;
+    font-size: 14px;
+    margin: 2%;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    margin-top: 70px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 40px;
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <div class="brand-and-toggler">
+          <a href="index.html" class="navbar-brand">
+            <img src="curriculum-vitae.png" alt="CV Icon" class="navbar-brand-icon" />
+            <span class="navbar-brand-text">Resume <span>Builder</span></span>
+          </a>
+          <button type="button" class="navbar-toggler-btn">
+            <div class="bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="parallax">
+    <h1>Choose Your Template</h1>
+    <h2>1. Landscape Template</h2>
+    <div class="slideshow-wrapper">
+      <button class="prev" onclick="prevSlide()">&#10094;</button>
+      <div class="slideshow-container">
+        <div class="slides">
+          <img src="assets/template0/template0.png" alt="Image 1" onclick="goToPage('assets/template0/resume.html')">
+          <img src="assets/template1/templete1.png" alt="Image 2" onclick="goToPage('assets/template1/resume3.html')">
+        </div>
+      </div>
+      <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    <h2>2. Portrait Template</h2>
+    <div class="slideshow-wrapper-2">
+      <button class="prev-2" onclick="prevSlide2()">&#10094;</button>
+      <div class="slideshow-container-2">
+        <div class="slides-2">
+          <img src="assets/template2/template2.png" alt="Image 1" onclick="goToPage('assets/template2/index.html')">
+          <img src="assets/template3/templete3.png" alt="Image 2" onclick="goToPage('assets/template3/index.html')">
+        </div>
+      </div>
+      <button class="next-2" onclick="nextSlide2()">&#10095;</button>
+    </div>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    let slideIndex2 = 0;
+    const slides = document.querySelector('.slides');
+    const slides2 = document.querySelector('.slides-2');
+    const totalSlides = slides.children.length;
+    const totalSlides2 = slides2.children.length;
+
+    function showSlide(index, slides, totalSlides) {
+      if (index >= totalSlides) {
+        index = 0;
+      } else if (index < 0) {
+        index = totalSlides - 1;
+      }
+      const offset = -index * 100;
+      slides.style.transform = `translateX(${offset}%)`;
+      return index;
+    }
+
+    function nextSlide() {
+      slideIndex++;
+      slideIndex = showSlide(slideIndex, slides, totalSlides);
+    }
+
+    function prevSlide() {
+      slideIndex--;
+      slideIndex = showSlide(slideIndex, slides, totalSlides);
+    }
+
+    function nextSlide2() {
+      slideIndex2++;
+      slideIndex2 = showSlide(slideIndex2, slides2, totalSlides2);
+    }
+
+    function prevSlide2() {
+      slideIndex2--;
+      slideIndex2 = showSlide(slideIndex2, slides2, totalSlides2);
+    }
+
+    function goToPage(pageUrl) {
+      window.location.href = pageUrl;
+    }
+  </script>
+</body>
+</html>

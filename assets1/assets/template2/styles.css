@@ -1,0 +1,405 @@
+/* Global Styles */
+body {
+  position: relative;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #3e4e6b, #1e354e);
+  font-family: 'Roboto', sans-serif;
+  color: #e0e0e0;
+  overflow-x: hidden;
+  background-image: url(revirw-sc.PNG);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+  /* Ensure the body takes at least the full viewport height */
+}
+
+/* Navbar */
+.navbar {
+  padding: 1rem 2rem;
+  background: rgba(28, 25, 75, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  /* Ensure navbar spans the full width */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-brand-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  transition: transform 0.5s ease;
+}
+
+.navbar-brand-icon:hover {
+  transform: rotate(720deg);
+}
+
+.navbar-brand-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f0ab00;
+}
+
+/* Container */
+.container {
+  background: rgba(31, 31, 34, 0.8);
+
+  max-width: 1200px;
+  margin-left: 13%;
+  margin-top: 7%;
+  margin-bottom: 7%;
+  margin-right: 13%;
+  /* Added margin to separate from navbar */
+  padding: 1rem;
+  border-radius: 15px;
+  /* Optional: Adds rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  /* Optional: Adds shadow for depth */
+}
+
+/* CV Form Section */
+.cv-form {
+  background: rgba(51, 24, 24, 0.5);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-top: 1rem;
+  animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cv-form-blk {
+
+
+  margin-left: 10px;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cv-form-row-title h3 {
+  margin-bottom: 1rem;
+  color: #f0ab00;
+  background-color: #474e5a96;
+  font-size: 1.9rem;
+  border-left: 5px solid #f0ab00;
+  padding-left: 0.5rem;
+  /* Fixed padding value */
+  text-align: center;
+}
+
+.cv-form-row {
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10%;
+
+
+}
+
+.form-elem {
+  flex: 1;
+  min-width: 210px;
+}
+
+.form-label {
+
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #e4d1d1;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: rgba(235, 231, 231, 0.1);
+  color: #dbc7c7;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #f0ab00;
+  outline: none;
+  box-shadow: 0 0 10px rgba(240, 171, 0, 0.7);
+}
+
+.form-control1 {
+  width: 217px;
+  padding: 0.8rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control1:focus {
+  border-color: #f0ab00;
+  outline: none;
+  box-shadow: 0 0 10px rgba(240, 171, 0, 0.7);
+}
+
+/* Preview Section */
+.preview-section {
+display:block;
+
+border-radius: 5px;
+justify-content: center;
+align-items: center;
+position: absolute;
+
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ced2f3;
+  background-image: url('review-sc.PNG');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: #46586b 3px solid;
+ opacity: 0.8;
+
+
+
+  border: 2px solid chocolate;
+  margin-left: 6%;
+  margin-right: 6%;
+}
+@media print {
+  .last-section {
+    /* Replace with actual class or ID */
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-before: always;
+  }
+
+  /* Ensures it starts on a new page if needed */
+  body {
+    image-rendering: crisp-edges;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+
+
+
+/* Resume Header */
+.resume-header {
+  margin-top: 20px;
+  text-align: center;
+
+}
+
+.resume-header img {
+  max-width: 100%; /* Prevents stretching */
+    height: auto;
+    object-fit: cover; 
+    width: 100px;  /* Keeps original quality */
+    height: 100px; 
+    border-radius: 50%; /* Circular shape */
+    border:  solid #5e4646; /* Clean border */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); 
+    overflow: hidden; 
+    justify-content: center;
+    align-items: center;
+}
+
+.resume-header h2 {
+  
+  color: #101214;
+  font-size: 16px;
+
+}
+
+.resume-header p {
+  color: #241d1d;
+  font-size: 16px;
+ 
+}
+
+/* Resume Sections */
+.resume-section {
+  padding: 1px;
+  margin-left: 40px;
+  margin-right: 69px;
+  flex-direction: column;
+}
+
+.resume-section h3 {
+  background: rgba(230, 46, 46, 0.3);
+  color: rgb(32, 26, 26);
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin: 1px;
+}
+
+/* Resume Content */
+.resume-content {
+  
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  color: #4b4f53;
+  border-left: 4px solid #a1b7cf;
+  position: relative;
+  margin: 1px;
+  
+}
+
+.resume-content p::before,
+.resume-content li::before {
+  content: "●";
+  font-size: 18px;
+  color: #8d6501;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.resume-content ul {
+  list-style-type: none;
+
+}
+
+.resume-content li {
+  padding: 1px 0;
+  font-size: 12px;
+}
+
+/* Button Styles */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+
+  margin: 8%;
+  background: #3b3a75;
+  color: #fff;
+  font-size: 1.03rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+  border-radius: 12px;
+  border: 1px solid #b45202;
+}
+
+button:hover {
+  background: #f0ab00;
+  transform: scale(1.05);
+}
+
+.preview-buttons {
+  margin-left: 33%;
+}
+
+.livee { 
+  font-size: 35px;
+  text-align: center;
+  background-color: rgba(17, 16, 20, 0.3) ;
+  color: rgb(44, 44, 63);
+  border: 2px solid;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 10px;
+}
+
+/* Mobile Container Crash Fix (max-width: 768px) */
+@media (max-width: 768px) {
+
+
+  body {
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    padding: 0;
+    margin: 0 ;
+  }
+
+  .container {
+  
+    padding: 15px;
+    box-sizing: border-box; /* Includes padding in width calculation */
+    border-radius: 12; /* Remove rounded corners on mobile */
+  }
+
+  .cv-form-row-title{
+    font-size: 7 !important ;
+  }
+
+  .cv-form {
+    width: 90%;
+    margin: 0;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  /* Force all children to stay within container */
+  .container > *,
+  .cv-form > * {
+    max-width: 90%;
+    overflow: hidden;
+  }
+
+  /* Input field specific fixes */
+  .form-control, 
+  .form-control1 {
+    width: calc(100% - 20px) !important; /* Account for padding */
+    margin: 0 10px; /* Center with small margins */
+    box-sizing: border-box;
+  }
+
+  /* Remove any negative margins that could cause overflow */
+  .resume-section,
+  .preview-section,
+  .cv-form-row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Buttons container fix */
+  .preview-buttons {
+    margin: 0 auto !important;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Ensure absolutely positioned elements don't overflow */
+  .preview-section {
+    position: relative;
+    width: 95%;
+    margin: 20px auto !important;
+    left: 0;
+    right: 0;
+  }
+}

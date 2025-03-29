@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resume Builder - Ram</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #b1b8be;
+            font-weight: bold;
+            font-size: 1.9rem;
+        }
+
+        .navbar-brand-icon {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar-toggler-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #2c3e50;
+            margin: 5px 0;
+            border-radius: 3px;
+        }
+
+        /* Header Styles */
+        .header {
+            padding: 80px 0;
+            text-align: center;
+            background-color: rgb(238, 226, 226);
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-blue-dark {
+            color: #2c3e50;
+        }
+
+        .fs-14 {
+            font-size: 14px;
+        }
+
+        .fw-6 {
+            font-weight: 600;
+        }
+
+        .ls-1 {
+            letter-spacing: 1px;
+        }
+
+        .lg-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .text-dark {
+            color: #333;
+        }
+
+        .fs-18 {
+            font-size: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px;
+            font-size: 13.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #54da48;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
+        }
+
+        /* Video Background Section */
+        .section-one {
+
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+            margin: 40px 0;
+            border-radius: 15px;
+
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+
+            filter: brightness(0.9);
+        }
+
+        .section-one-content {
+            background: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            color: #15012bab;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-one-l {
+
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .section-one-l img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .section-one-r {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .text {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .btn-secondary {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5eca3e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.4);
+        }
+
+        /* Section Two Styles */
+        .section-two {
+            padding: 60px 0;
+            background-color: rgb(230, 222, 222);
+            border-top: 1px solid #eee;
+        }
+
+        .section-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .section-item {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .section-item-icon img {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .section-item-title {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* Footer Styles */
+        .footer {
+            padding: 30px 0;
+            background-color: #3071ad;
+            color: white;
+            text-align: center;
+        }
+
+        .fs-15 {
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        /* Mobile View (350dp - 768dp) */
+        @media (min-width: 200px) and (max-width: 768px) {
+            .section-one {
+                padding: 35px 1px;
+                margin: 0;
+            }
+
+            .section-one-content {
+                flex-direction: column;
+                padding: 25px;
+                margin: 0 10px;
+                width: calc(100% - 20px);
+            }
+
+            .section-one-l,
+            .section-one-r {
+                min-width: 100%;
+               
+            }
+
+            .section-one-l img {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .section-one-r {
+                text-align: center;
+                padding-top: 25px;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 0;
+            }
+        }
+
+        .navbar {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+            background: transparent;
+        }
+
+        .navbar-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.95;
+            filter: brightness(0.6);
+        }
+
+        .navbar-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <video autoplay muted loop class="navbar-video">
+            <source src="video2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="navbar-content">
+                <div class="brand-and-toggler">
+                    <a href="index.html" class="navbar-brand">
+                        <img src="curriculum-vitae.png" alt="" class="navbar-brand-icon">
+                        <span class="navbar-brand-text">Resume <span>Builder</span></span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <div class="header-content text-center">
+                <h6 class="text-uppercase text-blue-dark fs-14 fw-6 ls-1">online resume builder</h6>
+                <div style="border-top: 1px solid #eee; margin-bottom: 20px; padding-top: 20px;">
+                    <h1 class="lg-title">Only 2% of resumes make it pass the first round. Be in the top</h1>
+                    <p class="text-dark fs-18">Keep it simple, but precise. Use professional field-tested resume
+                        templates that follow that exact 'resume rules' employers look for. Easy to use and done within
+                        minutes - try now for free!</p>
+                </div>
+                <a href="/assets1/index.html" class="btn btn-primary text-uppercase">create my resume</a>
+                <img style="border: 1px solid #ddd; border-radius: 10px; margin-top: 30px; max-width: 100%; max-height: 800px;"
+                    src="dublin-resume-templates.avif">
+            </div>
+        </div>
+    </header>
+
+    <div class="section-one">
+        <video autoplay muted loop id="bg-video" style=" opacity: 0.95;">
+            <source src="video2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="section-one-content">
+                <div class="section-one-l">
+                    <img src="visual-0c7080adf17f1f207276f613447c924f667dab34b7ac415cd7ef653172defd0b.svg">
+                </div>
+                <div style="border-top: 1px solid #eee; padding-top: 20px;" class="section-one-r text-center">
+                    <h2 class="lg-title">Use the best resume maker as your guide!</h2>
+                    <p class="text">Getting that dream job can seem like an impossible task. We're here to change that.
+                        Give yourself a real advantage with the best online resume maker: created by experts, imporved
+                        by data, trusted by millions of professionals.</p>
+                    <div class="btn-group">
+                        <a href="/assets1/index.html" class="btn btn-primary text-uppercase">create my resume</a>
+                        <a href="#" class="btn btn-secondary text-uppercase">watch Preview</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-two">
+        <div class="container">
+            <div class="section-two-content">
+                <div class="section-items">
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="feature-1-edf4481d69166ac81917d1e40e6597c8d61aa970ad44367ce78049bf830fbda5.svg"
+                                alt="">
+                        </div>
+                        <h5 class="section-item-title">Make a resume that wins interviews!</h5>
+                        <p class="text">Use our resume maker with its advanced creation tools to tell professional story
+                            that engages recruiters, hiring managers and even CEOs.</p>
+                    </div>
+
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="feature-2-a7a471bd973c02a55d1b3f8aff578cd3c9a4c5ac4fc74423d94ecc04aef3492b.svg"
+                                alt="">
+                        </div>
+                        <h5 class="section-item-title">Resume writing made easy!</h5>
+                        <p class="text">Resume writing has never been this effortless. Pre-generated text, visual
+                            designs and more - all already integrated into the resume maker. Just fill in your details.
+                        </p>
+                    </div>
+
+                    <div class="section-item">
+                        <div class="section-item-icon">
+                            <img src="feature-3-4e87a82f83e260488c36f8105e26f439fdc3ee5009372bb5e12d9421f32eabdd.svg"
+                                alt="">
+                        </div>
+                        <h5 class="section-item-title">A recruiter-tested CV maker tool</h5>
+                        <p class="text">Our resume builder and its pre-generated content are tested by recruiters and IT
+                            experts. We help your CV become truly competitive in the hiring process.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content text-center">
+                <p class="fs-15">&copy; <span></span> Copyright 2025. All Rights Reserved</span> | <span> Resume
+                        Builder</span></p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Resume Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar">
+      <a href="#" class="navbar-brand">
+        <img src="curriculum-vitae.png" alt="CV Icon" class="navbar-brand-icon">
+        <span class="navbar-brand-text">Resume <span>Builder</span></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Resume Form Section -->
+  <section id="about-sc">
+    <div class="container">
+      <form id="resumeForm">
+        <!-- About Section -->
+        <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>About Section</h3>
+          </div>
+          <div class="cv-form-row cv-form-row-about">
+            <div class="cols-3">
+              <div class="form-elem">
+                <label class="form-label" for="firstname">First Name</label>
+                <input id="firstname" name="firstname" type="text" class="form-control" placeholder="First Name" required>
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="lastname">Last Name</label>
+                <input id="lastname" name="lastname" type="text" class="form-control" placeholder="Last Name" required>
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="fathername">Father's Name</label>
+                <input id="fathername" name="fathername" type="text" class="form-control" placeholder="Father's Name">
+              </div>
+            </div>
+            <div class="cols-3">
+              <div class="form-elem">
+                <label class="form-label" for="image">Your Image</label>
+                <input id="image" name="image" type="file" class="form-control" accept="image/*">
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="dob">Date of Birth</label>
+                <input id="dob" name="dob" type="date" class="form-control" required>
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="address">Address</label>
+                <input id="address" name="address" type="text" class="form-control" placeholder="e.g. Lake Street-23">
+              </div>
+            </div>
+            <div class="cols-3">
+              <div class="form-elem">
+                <label class="form-label" for="email">Email</label>
+                <input id="email" name="email" type="email" class="form-control" placeholder="name@gmail.com" required>
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="phoneno">Phone No</label>
+                <input id="phoneno" name="phoneno" type="tel" class="form-control" placeholder="e.g. 9800000008" pattern="[0-9]{10}" required>
+              </div>
+              <div class="form-elem">
+                <label class="form-label" for="state">State</label>
+                <input id="state" name="state" type="text" class="form-control" placeholder="e.g. Punjab">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>Achievements</h3>
+          </div>
+          <div class="row-separator repeater">
+            <div class="repeater" data-repeater-list="achievements">
+              <div data-repeater-item>
+                <div class="cv-form-row cv-form-row-achievement">
+                  <div class="cols-2">
+                    <div class="form-elem">
+                      <label class="form-label" for="achieve_title">Title</label>
+                      <input name="achieve_title" type="text" class="form-control" placeholder="Accomplishment title">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label" for="achieve_description">Description</label>
+                      <input name="achieve_description" type="text" class="form-control" placeholder="Brief description">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>Experience</h3>
+          </div>
+          <div class="row-separator repeater">
+            <div class="repeater" data-repeater-list="experience">
+              <div data-repeater-item>
+                <div class="cv-form-row cv-form-row-experience">
+                  <div class="cols-3">
+                    <div class="form-elem">
+                      <label class="form-label">Job Title</label>
+                      <input name="exp_title" type="text" class="form-control" placeholder="Job Title">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Company</label>
+                      <input name="exp_organization" type="text" class="form-control" placeholder="Company Name">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Location</label>
+                      <input name="exp_location" type="text" class="form-control" placeholder="City">
+                    </div>
+                  </div>
+                  <div class="cols-3">
+                    <div class="form-elem">
+                      <label class="form-label">Start Date</label>
+                      <input name="exp_start_date" type="date" class="form-control">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">End Date</label>
+                      <input name="exp_end_date" type="date" class="form-control">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Description</label>
+                      <input name="exp_description" type="text" class="form-control" placeholder="Job Description">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>Education</h3>
+          </div>
+          <div class="row-separator repeater">
+            <div class="repeater" data-repeater-list="education">
+              <div data-repeater-item>
+                <div class="cv-form-row cv-form-row-experience">
+                  <div class="cols-3">
+                    <div class="form-elem">
+                      <label class="form-label">School</label>
+                      <input name="edu_school" type="text" class="form-control" placeholder="School Name">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Degree</label>
+                      <input name="edu_degree" type="text" class="form-control" placeholder="Degree">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">City</label>
+                      <input name="edu_city" type="text" class="form-control" placeholder="City">
+                    </div>
+                  </div>
+                  <div class="cols-3">
+                    <div class="form-elem">
+                      <label class="form-label">Start Date</label>
+                      <input name="edu_start_date" type="date" class="form-control">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">End Date</label>
+                      <input name="edu_graduation_date" type="date" class="form-control">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Description</label>
+                      <input name="edu_description" type="text" class="form-control" placeholder="Brief Description">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+          </div>
+        </div>
+
+         <!-- Skills Section -->
+         <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>Skills</h3>
+          </div>
+          <div class="row-separator repeater">
+            <div class="repeater" data-repeater-list="skills">
+              <div data-repeater-item>
+                <div class="cv-form-row cv-form-row-skills">
+                  <div class="form-elem">
+                    <label class="form-label">Skill</label>
+                    <input name="skill" type="text" class="form-control1" placeholder="Skill Name">
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="cv-form-blk">
+          <div class="cv-form-row-title">
+            <h3>Projects</h3>
+          </div>
+          <div class="row-separator repeater">
+            <div class="repeater" data-repeater-list="projects">
+              <div data-repeater-item>
+                <div class="cv-form-row cv-form-row-experience">
+                  <div class="cols-3">
+                    <div class="form-elem">
+                      <label class="form-label">Project Name</label>
+                      <input name="proj_title" type="text" class="form-control" placeholder="Project Name">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Project Link</label>
+                      <input name="proj_link" type="text" class="form-control" placeholder="URL">
+                    </div>
+                    <div class="form-elem">
+                      <label class="form-label">Description</label>
+                      <input name="proj_description" type="text" class="form-control" placeholder="Brief Description">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+   <p class="livee">Live Preview:-</p>
+  <!-- Resume Preview Section -->
+  <section id="previewSection" class="preview-section">
+    <div class="resume-header">
+      <img id="previewImage" src="" alt="Your Image">
+      <h2 id="previewName"></h2>
+      <p id="previewEmail"></p>
+      <p id="previewPhone"></p>
+    </div>
+
+    <!-- Personal Details Section -->
+    <div class="resume-section" id="previewPersonalSection">
+      <h3>Personal Information</h3>
+      <div class="resume-content">
+        <p><strong>Father's Name:</strong> <span id="previewFatherName"></span></p>
+        <p><strong>Date of Birth:</strong> <span id="previewDOB"></span></p>
+        <p><strong>Address:</strong> <span id="previewAddress"></span></p>
+        <p><strong>State:</strong> <span id="previewState"></span></p>
+      </div>
+    </div>
+
+    <!-- Achievements Section -->
+<div class="resume-section" id="previewAchievementsSection">
+  <h3>Achievements</h3>
+  <div id="previewAchievements" class="resume-content"></div>
+</div>
+
+    <!-- Education Section -->
+    <div class="resume-section" id="previewEducationSection">
+      <h3>Education</h3>
+      <div id="previewEducation" class="resume-content"></div>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="resume-section" id="previewExperienceSection">
+      <h3>Experience</h3>
+      <div id="previewExperience" class="resume-content"></div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="resume-section" id="previewSkillsSection">
+      <h3>Skills</h3>
+      <ul id="previewSkills" class="resume-content"></ul>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="resume-section" id="previewProjectsSection">
+      <h3>Projects</h3>
+      <div id="previewProjects" class="resume-content"></div>
+    </div>
+  </section>
+
+  <!-- Preview Buttons -->
+  <div class="preview-buttons">
+    <button onclick="downloadPDF()">Download PDF</button>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

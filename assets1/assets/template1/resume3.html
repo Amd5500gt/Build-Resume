@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Resume Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <header>
+        <h1>Resume Builder</h1>
+        <p>Design a stunning resume in minutes, Easy and Safe</p>
+    </header>
+
+    <main>
+        <!-- User Input Form -->
+        <section class="user-form">
+            <h2>Enter Your Details</h2>
+            <form id="resumeForm">
+                <!-- Personal Details -->
+                <div class="form-group personal-details animate__animated">
+                    <h3><i class="fas fa-user"></i> Personal Details</h3>
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required   placeholder="Enter you last name">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required placeholder="Enter your age">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <label for="fatherName">Father's Name:</label>
+                    <input type="text" id="fatherName" name="fatherName" required placeholder="Enter your father name">
+                    <label for="profileImage">Upload Profile Image:</label>
+                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                </div>
+
+                <!-- Contact Details -->
+                <div class="form-group contact-details animate__animated">
+                    <h3><i class="fas fa-address-book"></i> Contact Details</h3>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required placeholder="Enter your address">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required  placeholder="Enter your city">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required placeholder="Enter your state">
+                </div>
+
+                <!-- Education -->
+                <div class="form-group education-details animate__animated">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <label for="school">School/University:</label>
+                    <input type="text" id="school" name="school" required placeholder="School/University ">
+                    <label for="degree">Degree:</label>
+                    <input type="text" id="degree" name="degree" required placeholder="Enter your degree" >
+              
+                    <label for="educationDetails">Education Details:</label>
+                    <textarea id="educationDetails" name="educationDetails" rows="4" required placeholder="Education  Details"></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-group experience-details animate__animated">
+                    <h3><i class="fas fa-briefcase"></i> Employment History</h3>
+                    <label for="experience">Experience Details:</label>
+                    <textarea id="experience" name="experience" rows="4" required placeholder="Experience History" > </textarea>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group skills-details animate__animated">
+                    <h3><i class="fas fa-tools"></i> Skills</h3>
+                    <label for="skills">Skills:</label>
+                    <textarea id="skills" name="skills" rows="4" required placeholder="Skills"></textarea>
+                </div>
+
+                <!-- Projects -->
+                <div class="form-group projects-details animate__animated">
+                    <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                    <label for="projects">Project Details:</label>
+                    <textarea id="projects" name="projects" rows="4" required placeholder="Project Detail"></textarea>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-group certifications-details animate__animated">
+                    <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                    <label for="certifications">Certification Details:</label>
+                    <textarea id="certifications" name="certifications" rows="4" required placeholder="Certification"></textarea>
+                </div>
+
+                <!-- References -->
+                <div class="form-group references-details animate__animated">
+                    <h3><i class="fas fa-users"></i> References</h3>
+                    <label for="references">References:</label>
+                    <textarea id="references" name="references" rows="4" required placeholder="References"></textarea>
+                </div>
+
+                <button type="submit">Generate Resume</button>
+            </form>
+            <p id="formMessage"></p>
+        </section>
+
+        <!-- Generated Resume Section -->
+        <section class="generated-resume" id="generatedResume" style="display: none;">
+            <h2>Resume Builder</h2>
+            <div id="resumeContent">
+                <!-- Resume content will be dynamically inserted here -->
+            </div>
+            <button onclick="printResume()">Print Resume</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Resume Builder. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

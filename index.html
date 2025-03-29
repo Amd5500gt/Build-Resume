@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeBuild | Secure Access Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ==== Global Variables & Reset ==== */
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --danger: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --border-radius: 22px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      --text-gradient: linear-gradient(90deg, #93e04b, #3f37c9, #b8bb22);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+ 
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7ff;
+      color: var(--dark);
+      line-height: 1;
+      overflow-x: hidden;
+      min-height: 80vh;
+      position: relative;
+      margin-left: 2%;
+      margin-right: 2%;
+    }
+    
+    /* ==== Background Effects ==== */
+    .bg-blob {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      z-index: -1;
+      animation: float 15s ease-in-out infinite;
+    }
+    
+    .blob-1 {
+      background: var(--primary);
+      top: -200px;
+      left: -200px;
+      animation-delay: 0s;
+    }
+    
+    .blob-2 {
+      background: var(--accent);
+      bottom: -200px;
+      right: -200px;
+      animation-delay: 2.5s;
+    }
+    
+    .blob-3 {
+      background: var(--secondary);
+      top: 50%;
+      right: -150px;
+      width: 400px;
+      height: 400px;
+      animation-delay: 5s;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(50px, 50px);
+      }
+      50% {
+        transform: translate(-50px, 50px);
+      }
+      75% {
+        transform: translate(-50px, -50px);
+      }
+    }
+    
+    /* ==== Floating Particles ==== */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: float-particle linear infinite;
+    }
+    
+    @keyframes float-particle {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* ==== Main Container ==== */
+    .container {
+   
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    
+    /* ==== Auth Card ==== */
+    .auth-card {
+      padding-left: 1%;
+      padding-right: 1%;
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      position: relative;
+      transform: translateY(0);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .auth-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 55px;
+      background: var(--text-gradient);
+    }
+    
+    .auth-header {
+      margin-top: 15%;
+      padding: 2rem 2rem 1rem;
+      text-align: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--text-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+    }
+    
+    .logo-icon i {
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: var(--text-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .auth-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    
+    .auth-header p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* ==== Form Styles ==== */
+    .auth-form {
+      padding: 1.5rem 2rem 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: var(--border-radius);
+      font-size: 0.95rem;
+      transition: var(--transition);
+      background-color: #f8f9fa;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      background-color: white;
+    }
+    
+    .input-icon {
+
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-control:focus + .input-icon {
+      color: var(--primary);
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .password-toggle:hover {
+      color: var(--primary);
+    }
+    
+    /* ==== Button Styles ==== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.5rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(67, 97, 238, 0.4);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    /* ==== Form Footer ==== */
+    .form-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+    
+    .form-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    .form-footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    .form-footer a:hover::after {
+      width: 100%;
+    }
+    
+    /* ==== Form Switch Animation ==== */
+    .auth-form-container {
+      position: relative;
+      height: auto;
+      overflow: hidden;
+    }
+    
+    .form-page {
+      transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+    }
+    
+    .form-page.signup {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .form-page.signin {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    
+    .form-page.active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .form-page.inactive {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    
+    /* ==== Protected Content ==== */
+    .protected-content {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .protected-content h2 {
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+    
+    .user-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--text-gradient);
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 600;
+      box-shadow: 0 5px 20px rgba(67, 97, 238, 0.3);
+    }
+    
+    .btn-logout {
+      background: var(--danger);
+      color: white;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+    }
+    
+    .btn-logout:hover {
+      background: #e5177b;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(247, 37, 133, 0.4);
+    }
+    
+    /* ==== Notifications ==== */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: var(--border-radius);
+      color: white;
+      font-weight: 500;
+      box-shadow: var(--box-shadow);
+      transform: translateX(150%);
+      opacity: 0;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      max-width: 350px;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .notification.success {
+      background: var(--success);
+    }
+    
+    .notification.error {
+      background: var(--danger);
+    }
+    
+    .notification.warning {
+      background: #ff9800;
+    }
+    
+    .notification-icon {
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+    }
+    
+    /* ==== Loading Spinner ==== */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* ==== Responsive Design ==== */
+    @media (max-width: 576px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .auth-card {
+        border-radius: calc(var(--border-radius) - 4px);
+      }
+      
+      .auth-header, .auth-form {
+        padding: 1.5rem;
+      }
+      
+      .social-buttons {
+        flex-wrap: wrap;
+      }
+    }
+    
+    /* ==== Additional Animations ==== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    .shake {
+      animation: shake 0.5s;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    /* Forgot Password Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.modal-message {
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+#reset-password-btn {
+  margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 30px;
+    margin: 0 15px;
+  }
+  
+  .modal-title {
+    font-size: 1.3rem;
+  }
+}
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255,255,255,0.3) 0%,
+    rgba(255,255,255,0) 50%,
+    rgba(255,255,255,0.3) 100%
+  );
+  transform: rotate(30deg);
+  animation: liquidShine 4s linear infinite;
+}
+
+@keyframes liquidShine {
+  from { transform: translateX(-100%) rotate(30deg); }
+  to { transform: translateX(100%) rotate(30deg); }
+}
+
+.button-container {
+  position: relative;
+  width: 300px;
+  height: 130px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ededf0, #e5e6e9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.super-button {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: rgb(238, 203, 203);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.super-button:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.animation-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ball {
+  position: absolute;
+  border-radius: 50%;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite;
+  filter: blur(1px);
+  opacity: 0.7;
+  transform-origin: center;
+}
+/* Ripple effect */
+.ripple-effect {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transform: scale(0);
+  transform-origin: center;
+}
+
+/* Swipe particles */
+.swipe-particle {
+  will-change: transform, opacity;
+}
+
+@keyframes swipeParticle {
+  to {
+    transform: translate(var(--move-x), var(--move-y));
+    opacity: 0;
+  }
+}
+
+/* Make button more touch-friendly */
+.super-button {
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+
+  .button-container {
+    width: auto;
+    height: 15vh;
+
+  }
+  
+  .super-button {
+    font-size: 5vw;
+  }
+  
+}
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+  
+  <div class="particles-container" id="particles-container"></div>
+  
+  <!-- Notification System -->
+  <div id="notification" class="notification">
+    <span class="notification-icon"></span>
+    <span class="notification-message"></span>
+  </div>
+  
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3 class="modal-title">Forgot Password</h3>
+      <p class="modal-message">Enter your email to retrieve your password</p>
+      <form id="forgot-password-form">
+        <div class="form-group">
+          <label for="reset-email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <input type="email" id="reset-email" class="form-control" placeholder="name@example.com" required>
+            <i class="fas fa-envelope input-icon"></i>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="reset-password-btn">
+          <span>Retrieve Password</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <div class="auth-card">
+      <!-- Auth Header -->
+      <div class="auth-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="logo-text">RESUME BUILD</div>
+        </div>
+        <h2 id="form-title">Create Account</h2>
+        <p id="form-subtitle">Join our platform to access exclusive features</p>
+      </div>
+      
+      <!-- Auth Forms Container -->
+      <div class="auth-form-container">
+        <!-- Sign Up Form -->
+        <div class="auth-form form-page signup active" id="signup-form">
+          <form id="signup">
+            <div class="form-group">
+              <label for="signup-name" class="form-label">Full Name</label>
+              <div class="input-wrapper">
+                <input type="text" id="signup-name" class="form-control" placeholder="Full Name" required>
+                <i class="fas fa-user input-icon"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="signup-email" class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <input type="email" id="signup-email" class="form-control" placeholder="name@example.com" required>
+                <i class="fas fa-envelope input-icon"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="signup-password" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="signup-password" class="form-control" placeholder="••••••••" required minlength="8">
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye password-toggle" id="toggle-signup-password"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="signup-confirm-password" class="form-control" placeholder="••••••••" required minlength="8">
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye password-toggle" id="toggle-signup-confirm"></i>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <span>Sign Up</span>
+            </button>
+          </form>
+          
+          <div class="form-footer">
+            Already have an account? <a href="#" id="switch-to-signin">Sign In</a>
+          </div>
+        </div>
+        
+        <!-- Sign In Form -->
+        <div class="auth-form form-page signin" id="signin-form">
+          <form id="signin">
+            <div class="form-group">
+              <label for="signin-email" class="form-label">Email Address</label>
+              <div class="input-wrapper">
+                <input type="email" id="signin-email" class="form-control" placeholder="name@example.com" required>
+                <i class="fas fa-envelope input-icon"></i>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="signin-password" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="signin-password" class="form-control" placeholder="••••••••" required>
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye password-toggle" id="toggle-signin-password"></i>
+              </div>
+            </div>
+            
+            <div  class="form-footer" style="text-align: right;">
+              <a href="#" id="forgot-password-link" style="font-size: 0.85rem; ; " >Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="signin-btn" style="margin-top: 1.3rem;">
+              <div class="spinner" id="signin-spinner"></div>
+              <span id="signin-text">Sign In</span>
+            </button>
+          </form>
+          
+          <div class="form-footer">
+            Don't have an account? <a href="#" id="switch-to-signup">Sign Up</a>
+          </div>
+          <div class="button-container">
+            <button class="super-button">Touch Me!</button>
+            <div class="animation-area"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Protected Content (shown after login) -->
+    <div class="auth-card protected-content" id="protected-content">
+      <div class="auth-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="logo-text">ResumeBuild</div>
+        </div>
+      </div>
+      
+      <div class="protected-content-inner">
+        <div class="user-avatar" id="user-avatar">JD</div>
+        <h2>Welcome back, <span id="logged-in-user">John</span>!</h2>
+        <p>You've successfully logged in to your account.</p>
+        
+        <button class="btn btn-primary btn-logout" id="logout-btn">
+          <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    // ==== DOM Elements ====
+    const signupForm = document.getElementById('signup-form');
+    const signinForm = document.getElementById('signin-form');
+    const protectedContent = document.getElementById('protected-content');
+    const switchToSignin = document.getElementById('switch-to-signin');
+    const switchToSignup = document.getElementById('switch-to-signup');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loggedInUser = document.getElementById('logged-in-user');
+    const userAvatar = document.getElementById('user-avatar');
+    const formTitle = document.getElementById('form-title');
+    const formSubtitle = document.getElementById('form-subtitle');
+    const signinBtn = document.getElementById('signin-btn');
+    const signinSpinner = document.getElementById('signin-spinner');
+    const signinText = document.getElementById('signin-text');
+    const forgotPasswordLink = document.getElementById('forgot-password-link');
+    const forgotPasswordModal = document.getElementById('forgot-password-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const resetPasswordBtn = document.getElementById('reset-password-btn');
+    const resetPasswordForm = document.getElementById('forgot-password-form');
+    
+    // Notification elements
+    const notification = document.getElementById('notification');
+    const notificationIcon = notification.querySelector('.notification-icon');
+    const notificationMessage = notification.querySelector('.notification-message');
+    
+    // ==== JSONBin Configuration ====
+    const JSONBIN_API_KEY = "$2a$10$g.R8ThU3TH8I/GtOhrdLyuY3TDjVKrcl9ieTTAAZ0XCcyywzBU7AC"; // Replace with your actual API key
+    const JSONBIN_BIN_ID = "67e765cf8561e97a50f4f165"; // Replace with your actual Bin ID
+    const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`;
+    const JSONBIN_HEADERS = {
+      "Content-Type": "application/json",
+      "X-Master-Key": JSONBIN_API_KEY,
+      "X-Bin-Versioning": false
+    };
+
+    // ==== User Data ====
+    let users = [];
+    let currentUser = null;
+    
+    // ==== Initialize Particles ====
+    function initParticles() {
+      const container = document.getElementById('particles-container');
+      const particleCount = window.innerWidth < 768 ? 20 : 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        const duration = Math.random() * 10 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    // ==== Show Notification ====
+    function showNotification(type, message) {
+      notification.className = `notification ${type}`;
+      notificationIcon.className = `notification-icon fas fa-${
+        type === 'success' ? 'check-circle' : 
+        type === 'error' ? 'exclamation-circle' : 
+        'exclamation-triangle'
+      }`;
+      notificationMessage.textContent = message;
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 5000);
+    }
+    
+    // ==== Password Toggle ====
+    function setupPasswordToggle(eyeIconId, inputId) {
+      const eyeIcon = document.getElementById(eyeIconId);
+      const input = document.getElementById(inputId);
+      
+      eyeIcon.addEventListener('click', () => {
+        if (input.type === 'password') {
+          input.type = 'text';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          eyeIcon.classList.remove('fa-eye-slash');
+          eyeIcon.classList.add('fa-eye');
+        }
+      });
+    }
+    
+    // ==== Form Switching ====
+    function switchToForm(formType) {
+      if (formType === 'signin') {
+        signupForm.classList.remove('active');
+        signupForm.classList.add('inactive');
+        signinForm.classList.remove('inactive');
+        signinForm.classList.add('active');
+        formTitle.textContent = 'Welcome Back';
+        formSubtitle.textContent = 'Sign in to access your account';
+      } else {
+        signinForm.classList.remove('active');
+        signinForm.classList.add('inactive');
+        signupForm.classList.remove('inactive');
+        signupForm.classList.add('active');
+        formTitle.textContent = 'Create Account';
+        formSubtitle.textContent = 'Join our platform to access exclusive features';
+      }
+    }
+    
+    // ==== Form Validation ====
+    function validateSignupForm(name, email, password, confirmPassword) {
+      if (!name || !email || !password || !confirmPassword) {
+        showNotification('error', 'Please fill in all fields');
+        return false;
+      }
+      
+      if (password !== confirmPassword) {
+        showNotification('error', 'Passwords do not match');
+        return false;
+      }
+      
+      if (password.length < 8) {
+        showNotification('error', 'Password must be at least 8 characters');
+        return false;
+      }
+      
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification('error', 'Please enter a valid email address');
+        return false;
+      }
+      
+      return true;
+    }
+
+    function validateSigninForm(email, password) {
+      if (!email || !password) {
+        showNotification('error', 'Please fill in all fields');
+        return false;
+      }
+      return true;
+    }
+    
+    // ==== JSONBin Functions ====
+    async function saveUsersToJSONBin(users) {
+      try {
+        const response = await fetch(JSONBIN_URL, {
+          method: "PUT",
+          headers: JSONBIN_HEADERS,
+          body: JSON.stringify({ users })
+        });
+        
+        if (!response.ok) {
+          throw new Error("Failed to save users data");
+        }
+        
+        const result = await response.json();
+        console.log("Users data saved to JSONBin:", result);
+        return true;
+      } catch (error) {
+        console.error("Error saving to JSONBin:", error);
+        saveUsersToLocalStorage(users); // Fallback to localStorage
+        return false;
+      }
+    }
+
+    async function loadUsersFromJSONBin() {
+      try {
+        const response = await fetch(JSONBIN_URL + "/latest", {
+          method: "GET",
+          headers: JSONBIN_HEADERS
+        });
+        
+        if (!response.ok) {
+          throw new Error("Failed to load users data");
+        }
+        
+        const result = await response.json();
+        console.log("Users data loaded from JSONBin:", result);
+        return result.record?.users || [];
+      } catch (error) {
+        console.error("Error loading from JSONBin:", error);
+        return JSON.parse(localStorage.getItem('resumeBuildUsers')) || [];
+      }
+    }
+
+    function saveUsersToLocalStorage(users) {
+      localStorage.setItem('resumeBuildUsers', JSON.stringify(users));
+    }
+    
+    // ==== Forgot Password ====
+    function handleForgotPassword(e) {
+      e.preventDefault();
+      forgotPasswordModal.style.display = 'flex';
+    }
+
+    function closeForgotPasswordModal() {
+      forgotPasswordModal.style.display = 'none';
+      resetPasswordForm.reset();
+    }
+
+    async function handleResetPassword(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('reset-email').value.trim();
+      
+      if (!email) {
+        showNotification('error', 'Please enter your email address');
+        return;
+      }
+      
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification('error', 'Please enter a valid email address');
+        return;
+      }
+      
+      const originalText = resetPasswordBtn.innerHTML;
+      resetPasswordBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+      resetPasswordBtn.disabled = true;
+      
+      try {
+        // Load users from JSONBin
+        const users = await loadUsersFromJSONBin();
+        
+        // Find user by email
+        const user = users.find(u => u.email === email);
+        
+        if (!user) {
+          showNotification('error', 'No account found with that email address');
+          return;
+        }
+        
+        // Fill the password field in signin form
+        document.getElementById('signin-email').value = email;
+        document.getElementById('signin-password').value = user.password;
+        
+        // Show the signin form
+        switchToForm('signin');
+        
+        showNotification('success', 'Your password has been retrieved. You can now sign in.');
+        closeForgotPasswordModal();
+      } catch (error) {
+        console.error('Password retrieval error:', error);
+        showNotification('error', 'Failed to retrieve password. Please try again.');
+      } finally {
+        resetPasswordBtn.innerHTML = originalText;
+        resetPasswordBtn.disabled = false;
+      }
+    }
+    
+    // ==== Form Handlers ====
+    async function handleSignup(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('signup-name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      
+      if (!validateSignupForm(name, email, password, confirmPassword)) {
+        signupForm.classList.add('shake');
+        setTimeout(() => signupForm.classList.remove('shake'), 500);
+        return;
+      }
+      
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing Up...';
+      submitBtn.disabled = true;
+      
+      try {
+        // Load current users
+        const users = await loadUsersFromJSONBin();
+        
+        // Check if email exists
+        if (users.some(user => user.email === email)) {
+          showNotification('error', 'Email already registered');
+          signupForm.classList.add('shake');
+          setTimeout(() => signupForm.classList.remove('shake'), 500);
+          return;
+        }
+        
+        // Create new user
+        const newUser = {
+          id: Date.now().toString(),
+          name,
+          email,
+          password, // Note: In production, never store plain text passwords!
+          createdAt: new Date().toISOString(),
+          lastLogin: null,
+          loginCount: 0,
+          resetToken: null,
+          resetTokenExpires: null
+        };
+        
+        users.push(newUser);
+        
+        // Save to JSONBin
+        await saveUsersToJSONBin(users);
+        
+        showNotification('success', 'Account created successfully! Please sign in.');
+        switchToForm('signin');
+        document.getElementById('signup').reset();
+      } catch (error) {
+        console.error('Signup error:', error);
+        showNotification('error', 'Account creation failed. Please try again.');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+
+    async function handleSignin(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('signin-email').value.trim();
+      const password = document.getElementById('signin-password').value;
+      
+      if (!validateSigninForm(email, password)) {
+        signinForm.classList.add('shake');
+        setTimeout(() => signinForm.classList.remove('shake'), 500);
+        return;
+      }
+      
+      signinSpinner.style.display = 'block';
+      signinText.textContent = 'Signing In...';
+      signinBtn.disabled = true;
+      
+      try {
+        // Load users from JSONBin
+        const users = await loadUsersFromJSONBin();
+        
+        // Find user
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (!user) {
+          showNotification('error', 'Invalid email or password');
+          signinForm.classList.add('shake');
+          setTimeout(() => signinForm.classList.remove('shake'), 500);
+          return;
+        }
+        
+        // Update user login info
+        user.lastLogin = new Date().toISOString();
+        user.loginCount = (user.loginCount || 0) + 1;
+        
+        // Save updated users
+        await saveUsersToJSONBin(users);
+        
+        // Login successful
+        currentUser = user;
+        localStorage.setItem('resumeBuildCurrentUser', user.id);
+        loggedInUser.textContent = user.name;
+        userAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+        
+        // Show protected content
+        signupForm.classList.remove('active');
+        signinForm.classList.remove('active');
+        protectedContent.style.display = 'block';
+        
+        showNotification('success', `Welcome back, ${user.name.split(' ')[0]}!`);
+        
+        // Redirect after delay
+        setTimeout(() => {
+          window.location.href = 'assets2/index.html';
+        }, 1500);
+      } catch (error) {
+        console.error('Login error:', error);
+        showNotification('error', 'Login failed. Please try again.');
+      } finally {
+        signinSpinner.style.display = 'none';
+        signinText.textContent = 'Sign In';
+        signinBtn.disabled = false;
+      }
+    }
+    
+    // ==== Logout ====
+    function handleLogout() {
+      currentUser = null;
+      localStorage.removeItem('resumeBuildCurrentUser');
+      protectedContent.style.display = 'none';
+      switchToForm('signin');
+      document.getElementById('signin').reset();
+      showNotification('success', 'You have been logged out');
+    }
+    
+    // ==== Initialize App ====
+    async function initApp() {
+      initParticles();
+      setupPasswordToggle('toggle-signup-password', 'signup-password');
+      setupPasswordToggle('toggle-signup-confirm', 'signup-confirm-password');
+      setupPasswordToggle('toggle-signin-password', 'signin-password');
+      
+      // Load users from JSONBin
+      users = await loadUsersFromJSONBin();
+      
+      // Set up form handlers
+      document.getElementById('signup').addEventListener('submit', handleSignup);
+      document.getElementById('signin').addEventListener('submit', handleSignin);
+      switchToSignin.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchToForm('signin');
+      });
+      switchToSignup.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchToForm('signup');
+      });
+      logoutBtn.addEventListener('click', handleLogout);
+      
+      // Forgot password handlers
+      forgotPasswordLink.addEventListener('click', handleForgotPassword);
+      closeModal.addEventListener('click', closeForgotPasswordModal);
+      resetPasswordForm.addEventListener('submit', handleResetPassword);
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target === forgotPasswordModal) {
+          closeForgotPasswordModal();
+        }
+      });
+      
+      // Check if user is already logged in
+      const loggedInUserId = localStorage.getItem('resumeBuildCurrentUser');
+      if (loggedInUserId) {
+        const user = users.find(u => u.id === loggedInUserId);
+        if (user) {
+          currentUser = user;
+          loggedInUser.textContent = user.name;
+          userAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+          signupForm.classList.remove('active');
+          signinForm.classList.remove('active');
+          protectedContent.style.display = 'block';
+        }
+      }
+    }
+    
+    // Start the app
+    document.addEventListener('DOMContentLoaded', initApp);
+
+    document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.button-container');
+  const animationArea = document.querySelector('.animation-area');
+  
+  // Create initial balls
+  for (let i = 0; i < 15; i++) {
+    createBall(animationArea, i);
+  }
+  
+  // Mouse/touch move events
+  container.addEventListener('mousemove', handleInteraction);
+  container.addEventListener('touchmove', handleTouchInteraction, { passive: false });
+  
+  // Touch start for immediate feedback
+  container.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = container.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    createRipple(animationArea, x, y);
+  });
+  
+  // Swipe detection variables
+  let touchStartX = 0;
+  let touchStartY = 0;
+  
+  container.addEventListener('touchstart', function(e) {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+  
+  container.addEventListener('touchend', function(e) {
+    const touch = e.changedTouches[0];
+    const touchEndX = touch.clientX;
+    const touchEndY = touch.clientY;
+    
+    handleSwipeGesture(
+      touchStartX, 
+      touchStartY, 
+      touchEndX, 
+      touchEndY, 
+      animationArea,
+      container
+    );
+  }, { passive: true });
+});
+
+function handleInteraction(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  if (Math.random() > 0.7) {
+    createInteractiveBall(e.currentTarget.querySelector('.animation-area'), x, y);
+  }
+}
+
+function handleTouchInteraction(e) {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = touch.clientX - rect.left;
+  const y = touch.clientY - rect.top;
+  
+  // Create more balls during touch move for better visual feedback
+  if (Math.random() > 0.5) {
+    createInteractiveBall(e.currentTarget.querySelector('.animation-area'), x, y);
+  }
+}
+
+function handleSwipeGesture(startX, startY, endX, endY, container, element) {
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+  const rect = element.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  // Determine swipe direction
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    // Horizontal swipe
+    if (deltaX > 0) {
+      createSwipeEffect(container, centerX, centerY, 'right');
+    } else {
+      createSwipeEffect(container, centerX, centerY, 'left');
+    }
+  } else {
+    // Vertical swipe
+    if (deltaY > 0) {
+      createSwipeEffect(container, centerX, centerY, 'down');
+    } else {
+      createSwipeEffect(container, centerX, centerY, 'up');
+    }
+  }
+}
+
+function createSwipeEffect(container, x, y, direction) {
+  const particles = 15;
+  const colors = ['#ff69b4', '#00bfff', '#32cd32', '#ffd700', '#8a2be2', '#ff4500'];
+  
+  for (let i = 0; i < particles; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'swipe-particle';
+    
+    const size = Math.random() * 15 + 5;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const duration = Math.random() * 1 + 0.5;
+    const distance = Math.random() * 100 + 50;
+    
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.background = color;
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    particle.style.borderRadius = '50%';
+    particle.style.position = 'absolute';
+    particle.style.opacity = '0.9';
+    particle.style.filter = 'blur(0.5px)';
+    particle.style.zIndex = '100';
+    
+    let moveX = 0;
+    let moveY = 0;
+    
+    switch(direction) {
+      case 'right':
+        moveX = distance;
+        moveY = (Math.random() - 0.5) * distance;
+        break;
+      case 'left':
+        moveX = -distance;
+        moveY = (Math.random() - 0.5) * distance;
+        break;
+      case 'up':
+        moveY = -distance;
+        moveX = (Math.random() - 0.5) * distance;
+        break;
+      case 'down':
+        moveY = distance;
+        moveX = (Math.random() - 0.5) * distance;
+        break;
+    }
+    
+    particle.style.animation = `
+      swipeParticle ${duration}s forwards cubic-bezier(0.1, 0.8, 0.2, 1)
+    `;
+    
+    container.appendChild(particle);
+    
+    // Animate with transform for better performance
+    setTimeout(() => {
+      particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      particle.style.opacity = '0';
+    }, 10);
+    
+    // Remove after animation
+    setTimeout(() => {
+      particle.remove();
+    }, duration * 1000);
+  }
+}
+
+function createRipple(container, x, y) {
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple-effect';
+  
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+  ripple.style.position = 'absolute';
+  ripple.style.borderRadius = '50%';
+  ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+  ripple.style.pointerEvents = 'none';
+  ripple.style.transform = 'scale(0)';
+  ripple.style.transformOrigin = 'center';
+  
+  container.appendChild(ripple);
+  
+  // Animate ripple
+  setTimeout(() => {
+    ripple.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+    ripple.style.transform = 'scale(10)';
+    ripple.style.opacity = '0';
+  }, 10);
+  
+  // Remove after animation
+  setTimeout(() => {
+    ripple.remove();
+  }, 700);
+}
+
+// Update your existing createBall and createInteractiveBall functions
+// to include touch-specific animations if needed
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.button-container');
+  const animationArea = document.querySelector('.animation-area');
+  
+  // Create balls with different animations
+  for (let i = 0; i < 15; i++) {
+    createBall(animationArea, i);
+  }
+  
+  // Add interactive effect
+  container.addEventListener('mousemove', (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Create temporary balls on mouse move
+    if (Math.random() > 0.7) {
+      createInteractiveBall(animationArea, x, y);
+    }
+  });
+});
+
+function createBall(container, index) {
+  const ball = document.createElement('div');
+  ball.className = 'ball';
+  
+  // Random properties
+  const size = Math.random() * 20 + 5;
+  const color = getRandomColor();
+  const duration = Math.random() * 15 + 10;
+  const delay = Math.random() * 5;
+  
+  // Position and style
+  ball.style.width = `${size}px`;
+  ball.style.height = `${size}px`;
+  ball.style.background = color;
+  ball.style.left = `${Math.random() * 100}%`;
+  ball.style.top = `${Math.random() * 100}%`;
+  
+  // Animation
+  const animationName = index % 2 === 0 ? 'runAndJump' : 'floatAndBounce';
+  ball.style.animation = `${animationName} ${duration}s ${delay}s infinite`;
+  
+  container.appendChild(ball);
+}
+
+function createInteractiveBall(container, x, y) {
+  const ball = document.createElement('div');
+  ball.className = 'ball interactive';
+  
+  const size = Math.random() * 15 + 5;
+  const color = getRandomColor();
+  
+  ball.style.width = `${size}px`;
+  ball.style.height = `${size}px`;
+  ball.style.background = color;
+  ball.style.left = `${x}px`;
+  ball.style.top = `${y}px`;
+  ball.style.opacity = '0.9';
+  ball.style.filter = 'blur(0.5px)';
+  
+  // Short-lived animation
+  ball.style.animation = `explode 1.5s forwards`;
+  
+  container.appendChild(ball);
+  
+  // Remove after animation
+  setTimeout(() => {
+    ball.remove();
+  }, 1500);
+}
+
+function getRandomColor() {
+  const colors = [
+    'rgba(255, 105, 180, 0.8)', // Hot pink
+    'rgba(0, 191, 255, 0.8)', // Deep sky blue
+    'rgba(50, 205, 50, 0.8)', // Lime green
+    'rgba(255, 215, 0, 0.8)', // Gold
+    'rgba(138, 43, 226, 0.8)', // Blue violet
+    'rgba(255, 69, 0, 0.8)' // Orange red
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Add keyframes dynamically
+const styleSheet = document.createElement('style');
+styleSheet.type = 'text/css';
+
+const keyframes = `
+  @keyframes runAndJump {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(100px, -50px) scale(1.2);
+    }
+    50% {
+      transform: translate(200px, 0) scale(1);
+    }
+    75% {
+      transform: translate(300px, -30px) scale(1.1);
+    }
+    100% {
+      transform: translate(400px, 0) scale(1);
+    }
+  }
+  
+  @keyframes floatAndBounce {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(50px, -40px) rotate(90deg);
+    }
+    50% {
+      transform: translate(100px, 0) rotate(180deg);
+    }
+    75% {
+      transform: translate(150px, -20px) rotate(270deg);
+    }
+  }
+  
+  @keyframes explode {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+`;
+
+styleSheet.innerHTML = keyframes;
+document.head.appendChild(styleSheet);
+  </script>
+</body>
+</html>
