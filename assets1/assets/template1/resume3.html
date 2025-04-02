@@ -4,119 +4,749 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creative Resume Builder</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Ultra Pro Color Scheme */
+:root {
+  --primary-dark: #959ad6;
+  --primary: #3a3d8a;
+  --primary-light: #4b4ebd;
+  --secondary-dark: #8a4e3a;
+  --secondary: #bd6b4b;
+  --accent: #4ebd8a;
+  --light-bg: #f8f9ff;
+  --card-bg: #ffffff;
+  --text-dark: #1a1a2e;
+  --text-light: #f8f9ff;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  color: var(--text-light);
+  padding: 2rem 0;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(42, 45, 87, 0.3);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  background: linear-gradient(to right, var(--accent), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header p {
+  margin: 5px 0 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(42, 45, 87, 0.1);
+  margin: 30px auto;
+  padding: 30px;
+  max-width: 1200px;
+}
+
+h2 {
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+h3 i {
+  color: var(--accent);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  padding: 25px;
+  border-radius: 12px;
+  background-color: var(--card-bg);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border-left: 4px solid var(--accent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(42, 45, 87, 0.15);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+input, textarea {
+  width: 90%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 2px solid rgba(74, 78, 189, 0.1);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(248, 249, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(78, 189, 138, 0.2);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(78, 189, 138, 0.4);
+  margin-top: 15px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(78, 189, 138, 0.6);
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+}
+
+/* Resume Layout */
+.generated-resume {
+  display: none;
+  background-color: var(--light-bg);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(42, 45, 87, 0.2);
+}
+
+#resumeContent {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  padding: 30px;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Improved Resume Header */
+.resume-header {
+  grid-column: 1 / -1;
+  text-align: center;
+  background: linear-gradient(135deg, #5a4b8a, #735b8a);
+  color: white;
+  padding: 30px;
+  margin: -30px -30px 20px -30px;
+  border-radius: 12px 12px 0 0;
+}
+
+.resume-header h1 {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+  background: none;
+  -webkit-text-fill-color: white;
+}
+
+.resume-header p {
+  color: rgba(255,255,255,0.9);
+  margin: 5px 0;
+}
+
+.resume-header img {
+  max-width: 150px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid var(--accent);
+}
+
+/* Make both sides match with the same color scheme */
+.resume-left,
+.resume-right {
+  background: #fdf8fb;
+  color: #333333;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.resume-left {
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.resume-right {
+  padding: 30px;
+  border-radius: 12px;
+}
+
+/* Consistent heading styles */
+.resume-left h2,
+.resume-right h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #b8a9ff;
+  padding-bottom: 8px;
+}
+
+/* Matching content styles */
+.resume-left p, 
+.resume-right p,
+.resume-left ul, 
+.resume-right ul,
+.resume-left li,
+.resume-right li {
+  color: #444444;
+  line-height: 1.6;
+}
+
+/* Unified accent elements */
+.timeline-item:before {
+  background-color: #735b8a;
+}
+
+.skill-level {
+  background: linear-gradient(90deg, #b8a9ff, #8a7bc8);
+}
+
+/* Section titles */
+.section-title {
+  color: #735b8a;
+}
+
+/* Print Buttons */
+.print-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.print-landscape {
+  background: linear-gradient(135deg, #4b4ebd, #3a3d8a);
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--primary-dark);
+  color: var(--text-light);
+  margin-top: 40px;
+}
+
+/* ========== MEDIA QUERIES ========== */
+
+/* Desktop Two-Column Form (992px+) */
+@media (min-width: 992px) {
+  .user-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  
+  .personal-details,
+  .education-details,
+  .skills-details,
+  .certifications-details {
+    grid-column: 1;
+  }
+  
+  .contact-details,
+  .experience-details,
+  .projects-details,
+  .references-details {
+    grid-column: 2;
+  }
+  
+  #resumeForm button {
+   width: 50%;
+  }
+}
+
+/* Tablet (768px-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  section {
+    padding: 25px;
+    margin: 25px auto;
+  }
+  
+  .form-group {
+    padding: 20px;
+  }
+  
+  #resumeContent {
+    grid-template-columns: 1fr;
+    padding: 25px;
+  }
+}
+
+/* Mobile (467px-767px) */
+@media (max-width: 767px) {
+  header {
+    padding: 20px 0;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  section {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .form-group {
+    padding: 20px;
+  }
+  
+  #resumeContent {
+    padding: 20px;
+  }
+  
+  .print-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Extra Small (300px-466px) */
+@media (max-width: 466px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  section {
+    padding: 15px;
+    margin: 15px auto;
+  }
+  
+  .form-group {
+    padding: 15px;
+  }
+  
+  input, textarea {
+    padding: 10px;
+  }
+  
+  button {
+    width: 100%;
+  }
+}
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 0;
+    padding: 0;
+    background: white;
+    width: 100%;
+    height: 100%;
+    zoom: 0.8; /* Scale down slightly to fit everything */
+  }
+  
+  header, footer, .user-form, button {
+    display: none !important;
+  }
+  
+  .generated-resume {
+    display: block !important;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    page-break-after: avoid;
+    page-break-before: avoid;
+    transform: scale(0.95); /* Slightly scale down the entire resume */
+    transform-origin: top left;
+  }
+  
+  #resumeContent {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    grid-template-columns: 1fr 2fr;
+    break-inside: avoid;
+    font-size: 12px; /* Base font size for print */
+  }
+  
+  /* Header adjustments */
+  .resume-header {
+    padding: 15px !important;
+    margin: 0 0 10px 0 !important;
+  }
+  
+  .resume-header h1 {
+    font-size: 22pt !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* Content sections */
+  .resume-left, .resume-right {
+    padding: 10px 15px !important;
+    margin: 0 !important;
+    break-inside: avoid;
+  }
+  
+  /* Font size hierarchy */
+  h2 {
+    font-size: 14pt !important;
+    margin: 8px 0 !important;
+    padding-bottom: 4px !important;
+  }
+  
+  p, li {
+    font-size: 10pt !important;
+    margin: 4px !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* Image sizing */
+  .resume-header img {
+    max-width: 100px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  /* Remove unnecessary spacing */
+  br {
+    display: none;
+  }
+  
+  @page {
+    size: A4 landscape;
+    margin: 0.5cm;
+  }
+}
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Resume Builder</h1>
-        <p>Design a stunning resume in minutes, Easy and Safe</p>
-    </header>
+<header>
+  <h1>Resume Builder</h1>
+  <p>Design a stunning resume in minutes, Easy and Safe</p>
+</header>
 
-    <main>
-        <!-- User Input Form -->
-        <section class="user-form">
-            <h2>Enter Your Details</h2>
-            <form id="resumeForm">
-                <!-- Personal Details -->
-                <div class="form-group personal-details animate__animated">
-                    <h3><i class="fas fa-user"></i> Personal Details</h3>
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" required   placeholder="Enter you last name">
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="age" required placeholder="Enter your age">
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="dob" required>
-                    <label for="fatherName">Father's Name:</label>
-                    <input type="text" id="fatherName" name="fatherName" required placeholder="Enter your father name">
-                    <label for="profileImage">Upload Profile Image:</label>
-                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
-                </div>
+<main>
+  <!-- User Input Form -->
+  <section class="user-form">
+      <h2>Enter Your Details</h2>
+      <form id="resumeForm">
+          <!-- Personal Details -->
+          <div class="form-group personal-details">
+              <h3>Personal Details</h3>
+              <label for="firstName">First Name:</label>
+              <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+              <label for="lastName">Last Name:</label>
+              <input type="text" id="lastName" name="lastName" required placeholder="Enter you last name">
+              <label for="age">Age:</label>
+              <input type="number" id="age" name="age" required placeholder="Enter your age">
+              <label for="dob">Date of Birth:</label>
+              <input type="date" id="dob" name="dob" required>
+              <label for="fatherName">Father's Name:</label>
+              <input type="text" id="fatherName" name="fatherName" required placeholder="Enter your father name">
+              <label for="profileImage">Upload Profile Image:</label>
+              <input type="file" id="profileImage" name="profileImage" accept="image/*">
+          </div>
 
-                <!-- Contact Details -->
-                <div class="form-group contact-details animate__animated">
-                    <h3><i class="fas fa-address-book"></i> Contact Details</h3>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" name="address" required placeholder="Enter your address">
-                    <label for="city">City:</label>
-                    <input type="text" id="city" name="city" required  placeholder="Enter your city">
-                    <label for="state">State:</label>
-                    <input type="text" id="state" name="state" required placeholder="Enter your state">
-                </div>
+          <!-- Contact Details -->
+          <div class="form-group contact-details">
+              <h3>Contact Details</h3>
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required placeholder="Enter your email">
+              <label for="phone">Phone Number:</label>
+              <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+              <label for="address">Address:</label>
+              <input type="text" id="address" name="address" required placeholder="Enter your address">
+              <label for="city">City:</label>
+              <input type="text" id="city" name="city" required placeholder="Enter your city">
+              <label for="state">State:</label>
+              <input type="text" id="state" name="state" required placeholder="Enter your state">
+          </div>
 
-                <!-- Education -->
-                <div class="form-group education-details animate__animated">
-                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-                    <label for="school">School/University:</label>
-                    <input type="text" id="school" name="school" required placeholder="School/University ">
-                    <label for="degree">Degree:</label>
-                    <input type="text" id="degree" name="degree" required placeholder="Enter your degree" >
+          <!-- Education -->
+          <div class="form-group education-details">
+              <h3>Education</h3>
+              <label for="school">School/University:</label>
+              <input type="text" id="school" name="school" required placeholder="School/University ">
+              <label for="degree">Degree:</label>
+              <input type="text" id="degree" name="degree" required placeholder="Enter your degree">
+              <label for="educationDetails">Education Details:</label>
+              <textarea id="educationDetails" name="educationDetails" rows="4" required placeholder="Education  Details"></textarea>
+          </div>
+
+          <!-- Experience -->
+          <div class="form-group experience-details">
+              <h3>Employment History</h3>
+              <label for="experience">Experience Details:</label>
+              <textarea id="experience" name="experience" rows="4" required placeholder="Experience History"></textarea>
+          </div>
+
+          <!-- Skills -->
+          <div class="form-group skills-details">
+              <h3>Skills</h3>
+              <label for="skills">Skills:</label>
+              <textarea id="skills" name="skills" rows="4" required placeholder="Skills"></textarea>
+          </div>
+
+          <!-- Projects -->
+          <div class="form-group projects-details">
+              <h3>Projects</h3>
+              <label for="projects">Project Details:</label>
+              <textarea id="projects" name="projects" rows="4" required placeholder="Project Detail"></textarea>
+          </div>
+
+          <!-- Certifications -->
+          <div class="form-group certifications-details">
+              <h3>Certifications</h3>
+              <label for="certifications">Certification Details:</label>
+              <textarea id="certifications" name="certifications" rows="4" required placeholder="Certification"></textarea>
+          </div>
+
+          <!-- References -->
+          <div class="form-group references-details">
+              <h3>References</h3>
+              <label for="references">References:</label>
+              <textarea id="references" name="references" rows="4" required placeholder="References"></textarea>
+          </div>
+
+          <button type="submit">Generate Resume</button>
+          <button type="button" id="clearData">Clear Saved Data</button>
+      </form>
+      <p id="formMessage"></p>
+  </section>
+
+  <!-- Generated Resume Section -->
+  <section class="generated-resume" id="generatedResume" style="display: none;">
+      <h2>Your Resume</h2>
+      <div id="resumeContent">
+          <!-- Resume content will be dynamically inserted here -->
+      </div>
+      <div class="print-buttons">
+        <button onclick="printResume()"> 🖨️Print Resume</button>
+      </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Resume Builder. All rights reserved.</p>
+</footer>
+
+<script>
+  // LocalStorage Data Saving Functionality
+  document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("resumeForm");
+      const fields = form.querySelectorAll("input:not([type='file']), textarea, select");
+
+      // Load saved data on page load
+      fields.forEach(field => {
+          const savedValue = localStorage.getItem(field.id);
+          if (savedValue) {
+              field.value = savedValue;
+          }
+      });
+
+      // Save data on change
+      fields.forEach(field => {
+          field.addEventListener("input", function () {
+              localStorage.setItem(field.id, field.value);
+          });
+      });
+
+      // Clear Data button
+      document.getElementById("clearData").addEventListener("click", function () {
+          if(confirm("Are you sure you want to clear all saved data?")) {
+              localStorage.clear();
+              fields.forEach(field => field.value = "");
+          }
+      });
+  });
+
+  // Resume Generation Functionality
+  document.getElementById('resumeForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      // Get form values
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const age = document.getElementById('age').value;
+      const dob = document.getElementById('dob').value;
+      const fatherName = document.getElementById('fatherName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+      const city = document.getElementById('city').value;
+      const state = document.getElementById('state').value;
+      const school = document.getElementById('school').value;
+      const degree = document.getElementById('degree').value;
+      const educationDetails = document.getElementById('educationDetails').value;
+      const experience = document.getElementById('experience').value;
+      const skills = document.getElementById('skills').value;
+      const projects = document.getElementById('projects').value;
+      const certifications = document.getElementById('certifications').value;
+      const references = document.getElementById('references').value;
+      const profileImage = document.getElementById('profileImage').files[0];
+
+      // Validate form
+      if (
+          firstName && lastName && age && dob && fatherName && email && phone && address && city && state &&
+          school && degree && educationDetails && experience && skills && projects && certifications && references
+      ) {
+          let imageUrl = '';
+          if (profileImage) {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                  imageUrl = e.target.result;
+                  generateResume(
+                      firstName, lastName, age, dob, fatherName, email, phone, address, city, state,
+                      school, degree, educationDetails, experience, skills, projects, certifications, references, imageUrl
+                  );
+              };
+              reader.readAsDataURL(profileImage);
+          } else {
+              generateResume(
+                  firstName, lastName, age, dob, fatherName, email, phone, address, city, state,
+                  school, degree, educationDetails, experience, skills, projects, certifications, references, imageUrl
+              );
+          }
+      } else {
+          document.getElementById('formMessage').textContent = 'Please fill out all required fields.';
+          document.getElementById('formMessage').style.color = 'red';
+      }
+  });
+
+  function generateResume(
+      firstName, lastName, age, dob, fatherName, email, phone, address, city, state,
+      school, degree, educationDetails, experience, skills, projects, certifications, references, imageUrl
+  ) {
+      const resumeContent = `
+          <div class="resume-header">
+              ${imageUrl ? `<img src="${imageUrl}" alt="Profile Image">` : ''}
+              <h1>${firstName} ${lastName}</h1>
+              <p>${email} | ${phone} | ${address}, ${city}, ${state}</p>
+          </div>
+
+          <div class="resume-left">
+              <h2>Personal Details</h2>
+              <p><strong>Age:</strong> ${age}</p>
+              <p><strong>Date of Birth:</strong> ${dob}</p>
+              <p><strong>Father's Name:</strong> ${fatherName}</p>
+
+              <h2>Education</h2>
+              <p><strong>School/University:</strong> ${school}</p>
+              <p><strong>Degree:</strong> ${degree}</p>
+              <p>${educationDetails.replace(/\n/g, '<br>')}</p>
+
+              <h2>Skills</h2>
+              <p>${skills.replace(/\n/g, '<br>')}</p>
+          </div>
+
+          <div class="resume-right">
+              <h2>Employment History</h2>
+              <p>${experience.replace(/\n/g, '<br>')}</p>
+
+              <h2>Projects</h2>
+              <p>${projects.replace(/\n/g, '<br>')}</p>
               
-                    <label for="educationDetails">Education Details:</label>
-                    <textarea id="educationDetails" name="educationDetails" rows="4" required placeholder="Education  Details"></textarea>
-                </div>
+              <h2>Certifications</h2>
+              <p>${certifications.replace(/\n/g, '<br>')}</p>
 
-                <!-- Experience -->
-                <div class="form-group experience-details animate__animated">
-                    <h3><i class="fas fa-briefcase"></i> Employment History</h3>
-                    <label for="experience">Experience Details:</label>
-                    <textarea id="experience" name="experience" rows="4" required placeholder="Experience History" > </textarea>
-                </div>
+              <h2>References</h2>
+              <p>${references.replace(/\n/g, '<br>')}</p>
+          </div>
+      `;
 
-                <!-- Skills -->
-                <div class="form-group skills-details animate__animated">
-                    <h3><i class="fas fa-tools"></i> Skills</h3>
-                    <label for="skills">Skills:</label>
-                    <textarea id="skills" name="skills" rows="4" required placeholder="Skills"></textarea>
-                </div>
+      document.getElementById('resumeContent').innerHTML = resumeContent;
+      document.getElementById('generatedResume').style.display = 'block';
+      document.getElementById('generatedResume').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('formMessage').textContent = 'Resume generated successfully! Scroll down to view.';
+      document.getElementById('formMessage').style.color = 'green';
+  }
 
-                <!-- Projects -->
-                <div class="form-group projects-details animate__animated">
-                    <h3><i class="fas fa-project-diagram"></i> Projects</h3>
-                    <label for="projects">Project Details:</label>
-                    <textarea id="projects" name="projects" rows="4" required placeholder="Project Detail"></textarea>
-                </div>
-
-                <!-- Certifications -->
-                <div class="form-group certifications-details animate__animated">
-                    <h3><i class="fas fa-certificate"></i> Certifications</h3>
-                    <label for="certifications">Certification Details:</label>
-                    <textarea id="certifications" name="certifications" rows="4" required placeholder="Certification"></textarea>
-                </div>
-
-                <!-- References -->
-                <div class="form-group references-details animate__animated">
-                    <h3><i class="fas fa-users"></i> References</h3>
-                    <label for="references">References:</label>
-                    <textarea id="references" name="references" rows="4" required placeholder="References"></textarea>
-                </div>
-
-                <button type="submit">Generate Resume</button>
-            </form>
-            <p id="formMessage"></p>
-        </section>
-
-        <!-- Generated Resume Section -->
-        <section class="generated-resume" id="generatedResume" style="display: none;">
-            <h2>Resume Builder</h2>
-            <div id="resumeContent">
-                <!-- Resume content will be dynamically inserted here -->
-            </div>
-            <button onclick="printResume()">Print Resume</button>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2025 Resume Builder. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
+  </script>
+  <script src="script.js"></script>
+  <script>
+function printResume() {
+    // Store original styles
+    const originalStyles = {
+        bodyOverflow: document.body.style.overflow,
+        resumeContent: document.getElementById('resumeContent').innerHTML
+    };
+    
+    // Prepare for printing
+    document.body.style.overflow = 'hidden';
+    
+    // Create print-specific styles
+    const printStyles = document.createElement('style');
+    printStyles.innerHTML = `
+        @page {
+            size: A4 landscape;
+            margin: 0.5cm;
+        }
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            zoom: 0.9;
+        }
+        #resumeContent {
+            width: 100% !important;
+            height: auto !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    `;
+    document.head.appendChild(printStyles);
+    
+    // Print with a slight delay to ensure styles are applied
+    setTimeout(() => {
+        window.print();
+        
+        // Clean up after printing
+        setTimeout(() => {
+            document.head.removeChild(printStyles);
+            document.body.style.overflow = originalStyles.bodyOverflow;
+        }, 100);
+    }, 200);
+    
+    return false;
+}
+</script>
 </body>
 </html>

@@ -169,3 +169,130 @@ function startAnimation() {
 }
 
 startAnimation();
+
+
+// Data Saving Functionality
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("resume-form");
+  const inputs = form.querySelectorAll("input, textarea, select");
+  
+  // Load saved data
+  inputs.forEach(input => {
+    const savedValue = localStorage.getItem(input.id);
+    if (savedValue) {
+      input.value = savedValue;
+    }
+  });
+
+  // Save data on input
+  inputs.forEach(input => {
+    input.addEventListener("input", function() {
+      localStorage.setItem(input.id, input.value);
+    });
+  });
+
+  // Handle photo separately since it's a file input
+  const photoInput = document.getElementById("photo");
+  photoInput.addEventListener("change", function() {
+    if (this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem("photoData", e.target.result);
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  // Load photo if saved
+  const savedPhoto = localStorage.getItem("photoData");
+  if (savedPhoto) {
+    document.getElementById("preview-photo-display").src = savedPhoto;
+  }
+});
+
+// Your existing generateResume function
+function generateResume() {
+  // Get all form values
+  const fullName = document.getElementById("full-name").value;
+  const dob = document.getElementById("dob").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const address = document.getElementById("address").value;
+  const school = document.getElementById("school").value;
+  const degree = document.getElementById("degree").value;
+  const year = document.getElementById("year").value;
+  const company = document.getElementById("company").value;
+  const jobTitle = document.getElementById("job-title").value;
+  const jobDuration = document.getElementById("job-duration").value;
+  const jobDescription = document.getElementById("job-description").value;
+  const projectTitle = document.getElementById("project-title").value;
+  const projectDescription = document.getElementById("project-description").value;
+  const certification = document.getElementById("certification").value;
+  const certificationYear = document.getElementById("certification-year").value;
+  const skills = document.getElementById("skills").value;
+  const language = document.getElementById("language").value;
+  const hobbies = document.getElementById("hobbies").value;
+
+  // Update preview with form values
+  document.getElementById("preview-full-name").textContent = fullName;
+  document.getElementById("preview-dob").textContent = dob;
+  document.getElementById("preview-email").textContent = email;
+  document.getElementById("preview-phone").textContent = phone;
+  document.getElementById("preview-address").textContent = address;
+  document.getElementById("preview-school").textContent = school;
+  document.getElementById("preview-degree").textContent = degree;
+  document.getElementById("preview-graduation-year").textContent = year;
+  document.getElementById("preview-company").textContent = company;
+  document.getElementById("preview-job-title").textContent = jobTitle;
+  document.getElementById("preview-job-duration").textContent = jobDuration;
+  document.getElementById("preview-job-description").textContent = jobDescription;
+  document.getElementById("preview-project-title").textContent = projectTitle;
+  document.getElementById("preview-project-description").textContent = projectDescription;
+  document.getElementById("preview-certification").textContent = certification;
+  document.getElementById("preview-certification-year").textContent = certificationYear;
+  
+  // Handle skills list
+  const skillsList = document.getElementById("preview-skills");
+  skillsList.innerHTML = "";
+  skills.split(",").forEach(skill => {
+    if (skill.trim()) {
+      const li = document.createElement("li");
+      li.textContent = skill.trim();
+      skillsList.appendChild(li);
+    }
+  });
+
+  // Handle languages
+  const languagesList = document.getElementById("preview-languages");
+  languagesList.innerHTML = "";
+  const li = document.createElement("li");
+  li.textContent = language;
+  languagesList.appendChild(li);
+
+  // Handle photo preview
+  const photoInput = document.getElementById("photo");
+  if (photoInput.files && photoInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("preview-photo-display").src = e.target.result;
+      localStorage.setItem("photoData", e.target.result);
+    };
+    reader.readAsDataURL(photoInput.files[0]);
+  }
+
+  // Show the preview section
+  document.getElementById("resume-preview").style.display = "block";
+}
+
+// Your existing printResume function
+function printResume() {
+  window.print();
+}
+
+// Clear all saved data (add this to a button if needed)
+function clearSavedData() {
+  if (confirm("Are you sure you want to clear all saved data?")) {
+    localStorage.clear();
+    location.reload();
+  }
+}

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -375,6 +374,7 @@
         <section class = "print-btn-sc">
             <div class = "container">
                 <button type = "button" class = "print-btn btn btn-primary" onclick="printCV()">Print CV</button>
+                <button type = "button" id="clearData" class = "btn btn-secondary">Clear Saved Data</button>
             </div>
         </section>
 
@@ -386,5 +386,44 @@
         <script src = "script.js"></script>
         <!-- app js -->
         <script src="app.js"></script>
+        
+        <!-- Added localStorage script -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("cv-form");
+            const fields = form.querySelectorAll("input:not([type='file']), textarea, select");
+
+            // Load saved data
+            fields.forEach(field => {
+                const savedValue = localStorage.getItem(field.name);
+                if (savedValue) {
+                    field.value = savedValue;
+                    if (field.hasAttribute("onkeyup")) {
+                        generateCV();
+                    }
+                }
+            });
+
+            // Save data on input
+            fields.forEach(field => {
+                field.addEventListener("input", function () {
+                    localStorage.setItem(field.name, field.value);
+                });
+            });
+
+            // Clear data button
+            document.getElementById("clearData").addEventListener("click", function () {
+                if(confirm("Are you sure you want to clear all saved data?")) {
+                    localStorage.clear();
+                    fields.forEach(field => {
+                        field.value = "";
+                        if (field.hasAttribute("onkeyup")) {
+                            generateCV();
+                        }
+                    });
+                }
+            });
+        });
+        </script>
     </body>
 </html>

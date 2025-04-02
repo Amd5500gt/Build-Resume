@@ -10,7 +10,7 @@
     --clr-dark: #89a2cb;
     --clr-black: #873e3e;
     --clr-grey: #8d98ad;
-    --clr-green: #084C41;
+    --clr-green: #69d6c4;
     --font-poppins: 'Poppins', sans-serif;
     --font-manrope: 'Manrope', sans-serif;;
     --transition: all 300ms ease-in-out;
@@ -596,6 +596,8 @@ textarea{
 @media print{
     body *{
         visibility: hidden;
+         -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .non_print_area{
@@ -745,30 +747,4 @@ textarea{
 
 .dark-mode td {
     border: 1px solid #ff79c6;
-}
-.login {
-    
-    color: #e3eef9;
-    border-style: outset;
-    border-color: #141b22;
-    padding: 3px;
-    margin-top: 1px;
-    margin-left: 69%;
-    width: 70px;
-    background-color: #716555;
-    border-radius: 10px;
-    text-align: center;
-}
-.Signup {
-    color: #e8f2f2;
-    border-style: outset;
-    border-color: #141b22;
-    text-align: center;
-    padding: 2px;
-    border-radius: 10px;
-    margin-top: 1px;
-    margin-left: 10px;
-    margin-right: 20px;
-    width: 90px;
-    background-color: #716555;
 }
