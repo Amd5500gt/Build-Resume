@@ -257,7 +257,7 @@
     }
 
     h1:hover {
-      transform: scale(1.0) rotate(21255deg);
+      transform: scale(1.0) rotate(212323255deg);
       text-shadow: 0 0 10px #382d1c, 0 0 20px #493e36, 0 0 30px #291c18;
     }
 
@@ -306,7 +306,87 @@
       left: 0%;
     }
 
-    @media (max-width: 1000px){
+    @media (min-width: 768px){
+/* Mobile-First Slideshow Containers with Outer Buttons */
+.slideshow-wrapper {
+
+  position: relative;
+  max-width: 1050px;
+  padding-left:180px;
+  padding-right: 180px; /* Space for outer buttons */
+  box-sizing: border-box;
+}
+ .slideshow-wrapper-2 {
+
+  position: relative;
+  max-width: 1000px;
+  padding-left:288px;
+  padding-bottom: 20px;
+  padding-right: 280px; /* Space for outer buttons */
+  box-sizing: border-box;
+}
+
+.slideshow-container, .slideshow-container-2 {
+  padding: 8px;
+  margin: 15px 0;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid #7e3e3e;
+  border-radius: 8px;
+  animation: sparkBorder 15s infinite alternate;
+}
+
+/* Navigation Buttons (Outside Containers) */
+.prev, .next{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #9ca0a7;
+  color: #1a1414;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 15px;
+  margin-left: 12%;
+  margin-right: 10%;
+
+}
+.prev-2, .next-2{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #9ca0a7;
+  color: #1a1414;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 15px;
+  margin-left: 27%;
+  margin-right: 24%;
+
+}
+
+.prev, .prev-2 { left: 0; }
+.next, .next-2 { right: 0; }
+    }
+
+    @media (max-width: 768px){
 /* Mobile-First Slideshow Containers with Outer Buttons */
 .slideshow-wrapper, .slideshow-wrapper-2 {
   position: relative;
