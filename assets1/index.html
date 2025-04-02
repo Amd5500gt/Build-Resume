@@ -536,13 +536,18 @@ margin: 2%;
     </div>
   </div>
 
-  <script>
-    let slideIndex = 0;
+  <script>    let slideIndex = 0;
     let slideIndex2 = 0;
     const slides = document.querySelector('.slides');
     const slides2 = document.querySelector('.slides-2');
     const totalSlides = slides.children.length;
     const totalSlides2 = slides2.children.length;
+    
+    // Touch event variables
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    const slideshowContainer2 = document.querySelector('.slideshow-container-2');
 
     function showSlide(index, slides, totalSlides) {
       if (index >= totalSlides) {
@@ -577,6 +582,49 @@ margin: 2%;
 
     function goToPage(pageUrl) {
       window.location.href = pageUrl;
+    }
+
+    // Add touch event listeners for first slideshow
+    slideshowContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    slideshowContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    // Add touch event listeners for second slideshow
+    slideshowContainer2.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    slideshowContainer2.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe2();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        // Swipe left - next slide
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 50) {
+        // Swipe right - previous slide
+        prevSlide();
+      }
+    }
+
+    function handleSwipe2() {
+      if (touchEndX < touchStartX - 50) {
+        // Swipe left - next slide
+        nextSlide2();
+      }
+      if (touchEndX > touchStartX + 50) {
+        // Swipe right - previous slide
+        prevSlide2();
+      }
+    
     }
   </script>
 </body>
