@@ -896,8 +896,8 @@
         <div class="user-avatar" id="user-avatar">JD</div>
         <h2>Welcome back, <span id="logged-in-user">John</span>!</h2>
         <p>You've successfully logged in to your account.</p>
-        <a href="<a style="text-decoration: none;" href="assets2/index.html">" <button style="margin-top: 70px;  " class="btn btn-primary";>Home Page</button>
-        <button class="btn btn-primary btn-logout" id="logout-btn"> </a>
+       <button onclick="goToHome()" style="margin-top: 70px;  " class="btn btn-primary";>Home Page</button>
+        <button  class="btn btn-primary btn-logout" id="logout-btn"> </a>
           <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
           <span>Logout</span>
      
@@ -908,6 +908,7 @@
   </div>
 
   <script>
+    
 // ==== DOM Elements ====
 const signupForm = document.getElementById('signup-form');
 const signinForm = document.getElementById('signin-form');
@@ -1356,6 +1357,12 @@ async function initApp() {
 // Start the app
 document.addEventListener('DOMContentLoaded', initApp);
 
+function goToHome() {
+window.location.href = "assets2/index.html"
+}
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
   const container = document.querySelector('.button-container');
   const animationArea = document.querySelector('.animation-area');
@@ -1452,6 +1459,7 @@ function handleSwipeGesture(startX, startY, endX, endY, container, element) {
     }
   }
 }
+ 
 
 function createSwipeEffect(container, x, y, direction) {
   const particles = 15;
