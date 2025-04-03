@@ -153,3 +153,111 @@ $(document).ready(function () {
     $("#previewButton").click(updatePreview);
 
 });
+
+// Automatic save functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Load saved data if it exists
+    loadResumeData();
+    
+    // Set up automatic saving on form changes
+    const form = document.getElementById('resumeForm');
+    form.addEventListener('input', debounce(function() {
+        saveResumeData();
+    }, 500));
+    
+    // Clear data button functionality
+    document.querySelector('button[onclick="clearResumeData()"]').addEventListener('click', clearResumeData);
+});
+
+// Debounce function to prevent too frequent saves
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+// Save form data to localStorage
+function saveResumeData() {
+    const formData = new FormData(document.getElementById('resumeForm'));
+    const formDataObj = {};
+    
+    // Convert FormData to object
+    formData.forEach((value, key) => {
+        // Handle repeatable sections
+        if (key.includes('[') && key.includes(']')) {
+            const baseKey = key.split('[')[0];
+            const index = key.match(/\[(.*?)\]/)[1];
+            const subKey = key.split(']')[1].replace('[', '').replace(']', '');
+            
+            if (!formDataObj[baseKey]) formDataObj[baseKey] = [];
+            if (!formDataObj[baseKey][index]) formDataObj[baseKey][index] = {};
+            formDataObj[baseKey][index][subKey] = value;
+        } else {
+            formDataObj[key] = value;
+        }
+    });
+    
+    // Handle image separately
+    const imageInput = document.getElementById('image');
+    if (imageInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            formDataObj.imageData = e.target.result;
+            localStorage.setItem('resumeData', JSON.stringify(formDataObj));
+            console.log('Resume data saved automatically');
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+    } else {
+        localStorage.setItem('resumeData', JSON.stringify(formDataObj));
+        console.log('Resume data saved automatically');
+    }
+}
+
+// Load form data from localStorage
+function loadResumeData() {
+    const savedData = localStorage.getItem('resumeData');
+    if (!savedData) return;
+    
+    const formDataObj = JSON.parse(savedData);
+    
+    // Fill basic fields
+    for (const key in formDataObj) {
+        if (Array.isArray(formDataObj[key])) {
+            // Handle repeatable sections
+            formDataObj[key].forEach((item, index) => {
+                for (const subKey in item) {
+                    const input = document.querySelector(`[name="${key}[${index}][${subKey}]"]`);
+                    if (input) input.value = item[subKey];
+                }
+            });
+        } else {
+            const input = document.querySelector(`[name="${key}"]`);
+            if (input) input.value = formDataObj[key];
+        }
+    }
+    
+    // Handle image
+    if (formDataObj.imageData) {
+        document.getElementById('previewImage').src = formDataObj.imageData;
+    }
+    
+    // Trigger preview update
+    updateResumePreview();
+}
+
+// Clear all saved data
+function clearResumeData() {
+    if (confirm('Are you sure you want to clear all saved data?')) {
+        localStorage.removeItem('resumeData');
+        document.getElementById('resumeForm').reset();
+        document.getElementById('previewImage').src = '';
+        updateResumePreview();
+        console.log('All saved data cleared');
+    }
+}
+document.addEventListener('contextmenu', event => event.preventDefault());

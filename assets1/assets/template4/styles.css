@@ -364,7 +364,19 @@ background: url('https://png.pngtree.com/background/20210710/original/pngtree-bu
     max-width: 700px;
   }
 }
-
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+body {
+  touch-callout: none;
+  -webkit-touch-callout: none;
+}
+.navbar {
+  pointer-events: none;
+}
 /* Mobile Large (460px-767px) */
 @media (min-width: 460px) and (max-width: 767px) {
   .container {

@@ -57,3 +57,4 @@ document.addEventListener("DOMContentLoaded", function () {
         fields.forEach(field => field.value = "");
     });
 });
+document.addEventListener('contextmenu', event => event.preventDefault());

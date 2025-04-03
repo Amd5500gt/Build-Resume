@@ -457,6 +457,19 @@ button:hover {
     margin: 0.5cm;
   }
 }
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+body {
+  touch-callout: none;
+  -webkit-touch-callout: none;
+}
+.navbar {
+    pointer-events: none;
+}
     </style>
 </head>
 <header>
@@ -747,6 +760,7 @@ function printResume() {
     
     return false;
 }
+document.addEventListener('contextmenu', event => event.preventDefault());
 </script>
 </body>
 </html>

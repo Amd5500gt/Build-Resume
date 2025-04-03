@@ -296,3 +296,4 @@ function clearSavedData() {
     location.reload();
   }
 }
+document.addEventListener('contextmenu', event => event.preventDefault());

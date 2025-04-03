@@ -87,6 +87,19 @@ a{
     margin: 2rem 0;
     line-height: 1.6;
 }
+body {
+    touch-callout: none;
+    -webkit-touch-callout: none;
+  }
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  .navbar {
+    pointer-events: none;
+}
 
 .fw-2{font-weight: 200;}
 .fw-3{font-weight: 300;}

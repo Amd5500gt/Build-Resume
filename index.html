@@ -680,7 +680,19 @@
   from { transform: translateX(-100%) rotate(30deg); }
   to { transform: translateX(100%) rotate(30deg); }
 }
-
+.navbar {
+    pointer-events: none;
+}
+body {
+  touch-callout: none;
+  -webkit-touch-callout: none;
+}
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 .button-container {
   position: relative;
   width: 300px;
@@ -1708,6 +1720,7 @@ const keyframes = `
 
 styleSheet.innerHTML = keyframes;
 document.head.appendChild(styleSheet);
+document.addEventListener('contextmenu', event => event.preventDefault());
   </script>
   <script type="module" src="auth.js"></script>
 </body>
