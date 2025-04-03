@@ -260,3 +260,4 @@ document.getElementById('renderPreviewButton').addEventListener('click', functio
     previewSection.innerHTML = previewHTML;
     document.body.appendChild(previewSection);
   });
+  document.addEventListener('contextmenu', event => event.preventDefault());

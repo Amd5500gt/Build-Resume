@@ -16,6 +16,17 @@
       z-index: 100;
     }
 
+    body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+body {
+  touch-callout: none;
+  -webkit-touch-callout: none;
+}
+
     .navbar .navbar-brand {
       display: flex;
       align-items: center;
@@ -626,6 +637,7 @@ margin: 2%;
       }
     
     }
+    document.addEventListener('contextmenu', event => event.preventDefault());
   </script>
 </body>
 </html>
